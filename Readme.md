@@ -1,7 +1,7 @@
 # Личный проект «Большое путешествие» [![Build status][travis-image]][travis-url]
 
 * Студент: [Константин Мочульский](https://up.htmlacademy.ru/ecmascript/8/user/122407).
-* Наставник: `Неизвестно`.
+* Наставник: [Денис Быков](https://htmlacademy.ru/profile/id66426).
 
 ---
 

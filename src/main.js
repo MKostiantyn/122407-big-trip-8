@@ -90,14 +90,26 @@ const SPECIAL_OFFERS_MAP = new Map([
     {title: `Add meal`}
   ]]
 ]);
-
-let specialOffersMatchingData = getOffersByPlaceAndEvent(INPUT_TRAVEL_ROUTE_ARRAY, EVENT_TYPES_ARRAY_MAP, SPECIAL_OFFERS_MAP);
-let pointsByRouteEventPlace = getPointsByRouteEventPlace(INPUT_TRAVEL_ROUTE_ARRAY, EVENT_TYPES_ARRAY_MAP, specialOffersMatchingData, EVENT_QUANTITY);
-console.log(specialOffersMatchingData);
-console.log(pointsByRouteEventPlace);
-
+const PICTURES_MAP = [
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`,
+  `http://picsum.photos/300/150?r=${Math.random()}`
+];
 const filtersForm = document.querySelector(`.trip-filter`);
 const tripDayItemsBlock = document.querySelector(`.trip-day__items`);
+let specialOffersMatchingData = getOffersByPlaceAndEvent(INPUT_TRAVEL_ROUTE_ARRAY, EVENT_TYPES_ARRAY_MAP, SPECIAL_OFFERS_MAP);
+let pointsByRouteEventPlace = getPointsByRouteEventPlace(INPUT_TRAVEL_ROUTE_ARRAY, EVENT_TYPES_ARRAY_MAP, specialOffersMatchingData, PICTURES_MAP, EVENT_QUANTITY);
 
 filtersForm.innerHTML = renderFilters(FILTER_ITEMS_ARRAY);
 tripDayItemsBlock.innerHTML = renderPoints(pointsByRouteEventPlace);

@@ -1,5 +1,5 @@
-export default (units) => {
-  const currencySymbol = `€`;
-  const currencyRate = 4;
-  return `${currencySymbol} ${units * currencyRate}`;
+import {currencyRate} from './currency-data';
+export const convertPriceToEuro = (units) => {
+  const price = units * currencyRate;
+  return `${price}`;
 };

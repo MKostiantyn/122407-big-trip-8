@@ -1,6 +1,6 @@
-import getRandomInteger from './get-random-integer';
+import {getRandomInteger} from './get-random-integer';
 
-export default (array, minimum, maximum) => {
+export const getRandomArrayElements = (array, minimum, maximum) => {
   const arrayLength = array.length;
   const maxValue = maximum > arrayLength ? arrayLength : maximum;
   const minValue = minimum >= 0 && minimum < arrayLength ? minimum : 0;

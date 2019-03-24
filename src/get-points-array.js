@@ -1,4 +1,3 @@
-import {INPUT_TRAVEL_ROUTE_ARRAY, EVENT_TYPES_ARRAY_MAP, specialOffersMatchingData} from './get-data-for-route-event-place';
-import getPointByRouteEventPlace from './get-point-by-route-event-place';
-
-export default (quantity) => [...new Array(quantity)].map(() => getPointByRouteEventPlace(INPUT_TRAVEL_ROUTE_ARRAY, EVENT_TYPES_ARRAY_MAP, specialOffersMatchingData));
+import {pointsData} from './get-data-points';
+import {getPointByEventAndDestination} from './get-point-by-event-and-destination';
+export default (quantity) => [...new Array(quantity)].map(() => getPointByEventAndDestination(pointsData));

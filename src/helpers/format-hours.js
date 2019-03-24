@@ -1,1 +1,1 @@
-export default (hours) => hours % 1 ? `${hours}H ${hours % 1 * 60}M` : `${hours}H`;
+export const formatHours = (hours) => hours % 1 ? `${Math.floor(hours)}H ${Math.floor(hours % 1 * 60)}M` : `${Math.floor(hours)}H`;

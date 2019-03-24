@@ -7,7 +7,6 @@ import {PointEdit} from './pointEdit';
 const POINT_QUANTITY = 7;
 const FILTER_ITEMS_ARRAY = [`Everything`, `Future`, `Past`];
 const filtersForm = document.querySelector(`.trip-filter`);
-const tripDayItemsBlock = document.querySelector(`.trip-day__items`);
 const pointsContainer = document.querySelector(`.trip-day__items`);
 const pointsArray = getPointsArray(POINT_QUANTITY);
 
@@ -25,7 +24,7 @@ pointsArray.forEach((item) => {
     pointsContainer.replaceChild(point.element, pointEdit.element);
     pointEdit.unrender();
   };
-  pointEdit.onDelete = () => {
+  pointEdit.onReset = () => {
     point.render();
     pointsContainer.replaceChild(point.element, pointEdit.element);
     pointEdit.unrender();
@@ -35,11 +34,33 @@ filtersForm.innerHTML = renderFilters(FILTER_ITEMS_ARRAY);
 
 const filters = filtersForm.querySelectorAll(`[name='filter']`);
 if (filters.length) {
-  filters.forEach((item) => {
-    item.addEventListener(`change`, () => {
+  filters.forEach((filter) => {
+    filter.addEventListener(`change`, () => {
+      while (pointsContainer.firstChild) {
+        pointsContainer.removeChild(pointsContainer.firstChild);
+      }
       const randomPointsQuantity = getRandomInteger(1, 10);
       const randomPointsArray = getPointsArray(randomPointsQuantity);
-      tripDayItemsBlock.innerHTML = renderPoints(randomPointsArray);
+      randomPointsArray.forEach((item) => {
+        const point = new Point(item);
+        const pointEdit = new PointEdit(item);
+        pointsContainer.appendChild(point.render());
+        point.onEdit = () => {
+          pointEdit.render();
+          pointsContainer.replaceChild(pointEdit.element, point.element);
+          point.unrender();
+        };
+        pointEdit.onSubmit = () => {
+          point.render();
+          pointsContainer.replaceChild(point.element, pointEdit.element);
+          pointEdit.unrender();
+        };
+        pointEdit.onDelete = () => {
+          point.render();
+          pointsContainer.replaceChild(point.element, pointEdit.element);
+          pointEdit.unrender();
+        };
+      });
     });
   });
 }

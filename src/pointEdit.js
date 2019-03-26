@@ -17,7 +17,7 @@ export class PointEdit {
     this._isFavorite = data.isFavorite;
     this._element = null;
     this._onSubmit = null;
-    this._onDelete = null;
+    this._onReset = null;
   }
 
   _onSubmitClick(event) {
@@ -25,9 +25,9 @@ export class PointEdit {
     typeof this._onSubmit === `function` && this._onSubmit();
   }
 
-  _onDeleteClick(event) {
+  _onResetClick(event) {
     event.preventDefault();
-    typeof this._onDelete === `function` && this._onDelete();
+    typeof this._onReset === `function` && this._onReset();
   }
 
   _getTimeTable() {
@@ -130,8 +130,8 @@ export class PointEdit {
     this._onSubmit = fn;
   }
 
-  set onDelete(fn) {
-    this._onDelete = fn;
+  set onReset(fn) {
+    this._onReset = fn;
   }
 
   get element() {
@@ -203,20 +203,14 @@ export class PointEdit {
   }
 
   bind() {
-    this._element
-      .querySelector(`.point__button.point__button--save`)
-      .addEventListener(`click`, this._onSubmitClick.bind(this));
-    this._element
-      .querySelector(`.point__button:not(.point__button--save)`)
-      .addEventListener(`click`, this._onDeleteClick.bind(this));
+    const formElement = this._element.getElementsByTagName(`form`)[0];
+    formElement.addEventListener(`submit`, this._onSubmitClick.bind(this));
+    formElement.addEventListener(`reset`, this._onResetClick.bind(this));
   }
 
   unbind() {
-    this._element
-      .querySelector(`.point__button.point__button--save`)
-      .removeEventListener(`click`, this._onSubmitClick);
-    this._element
-      .querySelector(`.point__button:not(.point__button--save)`)
-      .removeEventListener(`click`, this._onDeleteClick);
+    const formElement = this._element.getElementsByTagName(`form`)[0];
+    formElement.removeEventListener(`submit`, this._onSubmitClick);
+    formElement.removeEventListener(`reset`, this._onResetClick);
   }
 }

@@ -9,7 +9,6 @@ const FILTER_ITEMS_ARRAY = [`Everything`, `Future`, `Past`];
 const filtersForm = document.querySelector(`.trip-filter`);
 const pointsContainer = document.querySelector(`.trip-day__items`);
 const pointsArray = getPointsArray(POINT_QUANTITY);
-
 pointsArray.forEach((item) => {
   const point = new Point(item);
   const pointEdit = new PointEdit(item);

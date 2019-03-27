@@ -1,4 +1,4 @@
-import {getRandomInteger} from './get-random-integer';
+import {getRandomInteger} from "./get-random-integer";
 
 export const getRandomArrayElements = (array, minimum, maximum) => {
   const arrayLength = array.length;

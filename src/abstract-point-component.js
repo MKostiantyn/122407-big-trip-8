@@ -2,17 +2,17 @@ import {createDomElement} from "./helpers/create-dom-element";
 import {formatTimeFromMilliseconds} from "./helpers/format-time-from-milliseconds";
 
 export class AbstractPoint {
-  constructor() {
+  constructor(data) {
     if (new.target === AbstractPoint) {
       throw new Error(`Can't instantiate Component, only concrete one.`);
     }
     this._element = null;
-    this._events = false;
-    this._destinations = false;
-    this._offers = false;
-    this._endTime = 0;
-    this._startTime = 0;
-    this._price = 0;
+    this._events = data.events;
+    this._destinations = data.destinations;
+    this._offers = data.offers;
+    this._price = data.price;
+    this._startTime = data.startTime;
+    this._endTime = data.endTime;
   }
   get template() {
     throw new Error(`You have to define template.`);

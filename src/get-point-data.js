@@ -1,4 +1,4 @@
-import {CURRENT_ROUTE_DATA} from "./current-route-data";
+import {currentRouteData} from "./current-route-data-component";
 import {getRandomInteger} from "./helpers/get-random-integer";
 import {convertNumberToPriceFormat} from "./helpers/convert-number-to-price-format";
 import {getRandomTime} from "./helpers/get-random-time";
@@ -7,7 +7,7 @@ import {getInitialDataMapped} from "./get-initial-data-mapped";
 import {getRandomArrayElements} from "./helpers/get-random-array-elements";
 
 export const getPointData = () => {
-  const place = CURRENT_ROUTE_DATA.place;
+  const place = currentRouteData.place;
   const initialData = getInitialDataMapped();
   const pointData = Array.isArray(initialData) ? initialData.find((item) => typeof item === `object` && item.place === place) : {};
   const eventsByPlace = Array.isArray(pointData.events) ? pointData.events : [];
@@ -39,8 +39,29 @@ export const getPointData = () => {
   pointData[`price`] = convertNumberToPriceFormat(getRandomInteger(1, 10));
   pointData[`startTime`] = getRandomTime();
   pointData[`endTime`] = eventType === `Transport` ? getRandomEndTime(pointData[`startTime`]) : false;
-  if (eventType === `Transport` && eventSubtype !== `local` && typeof randomChosenDestination === `object`) {
-    CURRENT_ROUTE_DATA.addPlace(randomChosenDestination[`title`]);
+  switch (eventType) {
+    case `Transport`: {
+      switch (eventSubtype) {
+        case `local`: {
+          if (place) {
+            currentRouteData.addPlace(place);
+          }
+          break;
+        }
+        default: {
+          if (typeof randomChosenDestination === `object`) {
+            currentRouteData.addPlace(randomChosenDestination[`title`]);
+          }
+        }
+      }
+      break;
+    }
+    case `StopPlace`: {
+      if (place) {
+        currentRouteData.addPlace(place);
+      }
+      break;
+    }
   }
   return pointData;
 };

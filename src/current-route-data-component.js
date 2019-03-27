@@ -21,5 +21,5 @@ class CurrentRouteData {
     }
   }
 }
-const CURRENT_ROUTE_DATA = new CurrentRouteData(INPUT_TRAVEL_ROUTE_MAP);
-export {CURRENT_ROUTE_DATA};
+const currentRouteData = new CurrentRouteData(INPUT_TRAVEL_ROUTE_MAP);
+export {currentRouteData};

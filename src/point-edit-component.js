@@ -1,16 +1,10 @@
 import {convertPriceToEuro} from "./helpers/convert-price-to-euro";
-import {currencySymbol} from "./helpers/currency-data";
-import {AbstractPoint} from "./abstractPoint";
+import {CURRENCY_DATA as currency} from "./helpers/currency-data";
+import {AbstractPoint} from "./abstract-point-component";
 
 export class PointEdit extends AbstractPoint {
   constructor(data) {
-    super();
-    this._events = data.events;
-    this._price = data.price;
-    this._startTime = data.startTime;
-    this._endTime = data.endTime;
-    this._destinations = data.destinations;
-    this._offers = data.offers;
+    super(data);
     this._isFavorite = data.isFavorite;
     this._element = null;
     this._onSubmit = null;
@@ -18,11 +12,15 @@ export class PointEdit extends AbstractPoint {
   }
   _onSubmitClick(event) {
     event.preventDefault();
-    typeof this._onSubmit === `function` && this._onSubmit();
+    if (typeof this._onSubmit === `function`) {
+      this._onSubmit();
+    }
   }
   _onResetClick(event) {
     event.preventDefault();
-    typeof this._onReset === `function` && this._onReset();
+    if (typeof this._onReset === `function`) {
+      this._onReset();
+    }
   }
   _renderChosenEvent() {
     const chosenEvent = this._getChosenEvent();
@@ -87,7 +85,7 @@ export class PointEdit extends AbstractPoint {
       const title = isOfferObject && offer.hasOwnProperty(`title`) ? offer[`title`] : ``;
       return `<input class="point__offers-input visually-hidden" type="checkbox" id="${id}" name="offer" value="${id}" ${isChosen}>
               <label for="${id}" class="point__offers-label">
-                <span class="point__offer-service">${title}</span> + ${currencySymbol}<span class="point__offer-price">${price}</span>
+                <span class="point__offer-service">${title}</span> + ${currency.symbol}<span class="point__offer-price">${price}</span>
               </label>`;
     };
     return offers.reduce((accumulator, item, index, array) => {
@@ -151,7 +149,7 @@ export class PointEdit extends AbstractPoint {
                     <input class="point__input" type="text" value="${timeTable}" name="time" placeholder="${timeTable}">
                   </label>
                   <label class="point__price">write price
-                    <span class="point__price-currency">${currencySymbol}</span>
+                    <span class="point__price-currency">${currency.symbol}</span>
                     <input class="point__input" type="text" value="${price}" name="price">
                   </label>
                   <div class="point__buttons">

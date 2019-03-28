@@ -1,1 +1,2 @@
-export const convertMillisecondsToHours = (milliseconds) => milliseconds / (60 * 60 * 1000);
+import {UTILS_DATE_DATA as time} from "./utils-date-data";
+export const convertMillisecondsToHours = (milliseconds) => milliseconds / (time.minutes * time.seconds * time.milliseconds);

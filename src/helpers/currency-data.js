@@ -1,3 +1,4 @@
-const currencySymbol = `€`;
-const currencyRate = 4;
-export {currencySymbol, currencyRate};
+export const CURRENCY_DATA = {
+  symbol: `€`,
+  rate: 4
+};

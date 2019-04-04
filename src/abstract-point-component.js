@@ -1,5 +1,6 @@
 import {createDomElement} from "./helpers/create-dom-element";
-import {formatTimeFromMilliseconds} from "./helpers/format-time-from-milliseconds";
+import {objectDeepCopying} from "./helpers/object-deep-copying";
+import moment from "moment";
 
 export class AbstractPoint {
   constructor(data) {
@@ -7,12 +8,14 @@ export class AbstractPoint {
       throw new Error(`Can't instantiate Component, only concrete one.`);
     }
     this._element = null;
-    this._events = data.events;
-    this._destinations = data.destinations;
-    this._offers = data.offers;
+    this._events = objectDeepCopying(data.events);
+    this._destinations = objectDeepCopying(data.destinations);
+    this._offers = objectDeepCopying(data.offers);
     this._price = data.price;
     this._startTime = data.startTime;
     this._endTime = data.endTime;
+    this._place = data.place;
+    this._isFavorite = data.isFavorite;
   }
   get template() {
     throw new Error(`You have to define template.`);
@@ -31,6 +34,15 @@ export class AbstractPoint {
   }
   bind() {}
   unbind() {}
+  update(data) {
+    this._events = objectDeepCopying(data.events);
+    this._destinations = objectDeepCopying(data.destinations);
+    this._offers = objectDeepCopying(data.offers);
+    this._price = data.price;
+    this._startTime = data.startTime;
+    this._endTime = data.endTime;
+    this._isFavorite = data.isFavorite;
+  }
   _getChosenEvent() {
     return Array.isArray(this._events) ? this._events.find((item) => typeof item === `object` && item[`isChosen`]) : {};
   }
@@ -65,7 +77,10 @@ export class AbstractPoint {
     return Array.isArray(offers) && offers.length ? offers.filter((item) => item.hasOwnProperty(`isChosen`) && item[`isChosen`]) : [];
   }
   _getTimeTable() {
-    return this._endTime ? formatTimeFromMilliseconds(this._startTime, this._endTime) : formatTimeFromMilliseconds(this._startTime);
+    if (this._endTime && this._startTime && !isNaN(this._endTime) && !isNaN(this._startTime)) {
+      return `${moment(this._startTime).format(`HH:mm`)} - ${moment(this._endTime).format(`HH:mm`)}`
+    }
+    return !isNaN(this._startTime) && this._startTime ? moment(this._startTime).format(`HH:mm`) : ``;
   }
   _getPointTotalPrice() {
     const offersChosen = this._getChosenOffers();

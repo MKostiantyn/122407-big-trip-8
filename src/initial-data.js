@@ -1,9 +1,9 @@
 import {makeUniqueElementsArray} from "./helpers/make-unique-elements-array";
 import {createObjectFromArrayWithData} from "./helpers/create-object-from-array-with-data";
 
-const INPUT_TRAVEL_ROUTE_MAP = [`Amsterdam`, `Barcelona`, `New York`, `Beijing`, `Amsterdam`];
-const UNIQUE_TRAVEL_ROUTE_MAP = makeUniqueElementsArray(INPUT_TRAVEL_ROUTE_MAP);
-const EVENTS_ARRAY_MAP = [
+const INPUT_TRAVEL_ROUTE_MOCK = [`Amsterdam`, `Barcelona`, `New York`, `Beijing`, `Amsterdam`];
+const uniqueTravelRoutes = makeUniqueElementsArray(INPUT_TRAVEL_ROUTE_MOCK);
+const EVENTS_ARRAY_MOCK = [
   {
     id: `Taxi`,
     type: `Transport`,
@@ -85,20 +85,20 @@ const EVENTS_ARRAY_MAP = [
     isChosen: false
   }
 ];
-const DESTINATIONS_MAP = {
+const DESTINATIONS_MOCK = {
   'Transport': {
-    'local': createObjectFromArrayWithData(UNIQUE_TRAVEL_ROUTE_MAP, [`airport`, `bus station`, `railway station`]),
+    'local': createObjectFromArrayWithData(uniqueTravelRoutes, [`airport`, `bus station`, `railway station`]),
     'remote': {
-      'Amsterdam': UNIQUE_TRAVEL_ROUTE_MAP.filter((item) => `Amsterdam` !== item),
-      'Barcelona': UNIQUE_TRAVEL_ROUTE_MAP.filter((item) => `Barcelona` !== item),
-      'New York': UNIQUE_TRAVEL_ROUTE_MAP.filter((item) => `New York` !== item),
-      'Beijing': UNIQUE_TRAVEL_ROUTE_MAP.filter((item) => `Beijing` !== item)
+      'Amsterdam': uniqueTravelRoutes.filter((item) => `Amsterdam` !== item),
+      'Barcelona': uniqueTravelRoutes.filter((item) => `Barcelona` !== item),
+      'New York': uniqueTravelRoutes.filter((item) => `New York` !== item),
+      'Beijing': uniqueTravelRoutes.filter((item) => `Beijing` !== item)
     },
     'local&remote': {
-      'Amsterdam': UNIQUE_TRAVEL_ROUTE_MAP.filter((item) => `Amsterdam` !== item),
-      'Barcelona': UNIQUE_TRAVEL_ROUTE_MAP.filter((item) => `Barcelona` !== item),
-      'New York': UNIQUE_TRAVEL_ROUTE_MAP.filter((item) => `New York` !== item),
-      'Beijing': UNIQUE_TRAVEL_ROUTE_MAP.filter((item) => `Beijing` !== item)
+      'Amsterdam': uniqueTravelRoutes.filter((item) => `Amsterdam` !== item),
+      'Barcelona': uniqueTravelRoutes.filter((item) => `Barcelona` !== item),
+      'New York': uniqueTravelRoutes.filter((item) => `New York` !== item),
+      'Beijing': uniqueTravelRoutes.filter((item) => `Beijing` !== item)
     }
   },
   'StopPlace': {
@@ -122,16 +122,16 @@ const DESTINATIONS_MAP = {
     }
   }
 };
-const SPECIAL_OFFERS_MAP = {
+const SPECIAL_OFFERS_MOCK = {
   'Transport': {
-    'local': createObjectFromArrayWithData(UNIQUE_TRAVEL_ROUTE_MAP, [`Order Uber`, `Order MyTaxi`]),
-    'remote': createObjectFromArrayWithData(UNIQUE_TRAVEL_ROUTE_MAP, [`Choose seats`, `Add luggage`, `Switch to comfort class`]),
-    'local&remote': createObjectFromArrayWithData(UNIQUE_TRAVEL_ROUTE_MAP, [`Rent a car`, `Book ride`, `Rent a bike`])
+    'local': createObjectFromArrayWithData(uniqueTravelRoutes, [`Order Uber`, `Order MyTaxi`]),
+    'remote': createObjectFromArrayWithData(uniqueTravelRoutes, [`Choose seats`, `Add luggage`, `Switch to comfort class`]),
+    'local&remote': createObjectFromArrayWithData(uniqueTravelRoutes, [`Rent a car`, `Book ride`, `Rent a bike`])
   },
   'StopPlace': {
-    'stay': createObjectFromArrayWithData(UNIQUE_TRAVEL_ROUTE_MAP, [`Add breakfast`, `Add extra bed`, `Add late check-in`]),
-    'visit': createObjectFromArrayWithData(UNIQUE_TRAVEL_ROUTE_MAP, [`Add ticket`, `Add excursion`, `Add guide`]),
-    'eat': createObjectFromArrayWithData(UNIQUE_TRAVEL_ROUTE_MAP, [`Add reservation`, `Add preorder`])
+    'stay': createObjectFromArrayWithData(uniqueTravelRoutes, [`Add breakfast`, `Add extra bed`, `Add late check-in`]),
+    'visit': createObjectFromArrayWithData(uniqueTravelRoutes, [`Add ticket`, `Add excursion`, `Add guide`]),
+    'eat': createObjectFromArrayWithData(uniqueTravelRoutes, [`Add reservation`, `Add preorder`])
   }
 };
-export {INPUT_TRAVEL_ROUTE_MAP, EVENTS_ARRAY_MAP, DESTINATIONS_MAP, SPECIAL_OFFERS_MAP};
+export {uniqueTravelRoutes, EVENTS_ARRAY_MOCK, DESTINATIONS_MOCK, SPECIAL_OFFERS_MOCK, INPUT_TRAVEL_ROUTE_MOCK};

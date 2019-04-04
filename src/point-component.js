@@ -1,6 +1,6 @@
 import {convertMillisecondsToHours} from "./helpers/convert-milliseconds-to-hours";
 import {formatHours} from "./helpers/format-hours";
-import {convertPriceToEuro} from "./helpers/convert-price-to-euro";
+import {convertPriceToCurrency} from "./helpers/convert-price-to-currency";
 import {CURRENCY_DATA as currency} from "./helpers/currency-data";
 import {AbstractPoint} from "./abstract-point-component";
 
@@ -25,7 +25,7 @@ export class Point extends AbstractPoint {
       if (!currentIndex) {
         total += `<ul class="trip-point__offers">`;
       }
-      total += `<li><button class="trip-point__offer">${currency.symbol} ${convertPriceToEuro(offer.price)} ${offer.title}</button></li>`;
+      total += `<li><button class="trip-point__offer">${currency.symbol} ${convertPriceToCurrency(offer.price)} ${offer.title}</button></li>`;
       if (currentIndex === self.length - 1) {
         total += `</ul>`;
       }
@@ -42,7 +42,7 @@ export class Point extends AbstractPoint {
     const destinationTitle = this._getChosenDestinationTitle();
     const timetable = this._getTimeTable();
     const duration = this._endTime ? formatHours(convertMillisecondsToHours(this._endTime - this._startTime)) : ``;
-    const price = `${currency.symbol} ${convertPriceToEuro(this._getPointTotalPrice())}`;
+    const price = `${currency.symbol} ${convertPriceToCurrency(this._getPointTotalPrice())}`;
     const offers = this._renderPointOffers();
     return `<article class="trip-point">
             <i class="trip-icon">${eventIcon}</i>

@@ -1,4 +1,4 @@
-import {INPUT_TRAVEL_ROUTE_MAP} from "./initial-data";
+import {INPUT_TRAVEL_ROUTE_MOCK} from "./initial-data";
 class CurrentRouteData {
   constructor(route) {
     this._data = [];
@@ -21,5 +21,5 @@ class CurrentRouteData {
     }
   }
 }
-const currentRouteData = new CurrentRouteData(INPUT_TRAVEL_ROUTE_MAP);
+const currentRouteData = new CurrentRouteData(INPUT_TRAVEL_ROUTE_MOCK);
 export {currentRouteData};

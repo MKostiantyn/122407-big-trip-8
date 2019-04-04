@@ -1,15 +1,14 @@
 import {currentRouteData} from "./current-route-data-component";
+import {getInitialDataByPlace} from "./get-initial-data-by-place";
 import {getRandomInteger} from "./helpers/get-random-integer";
 import {convertNumberToPriceFormat} from "./helpers/convert-number-to-price-format";
 import {getRandomTime} from "./helpers/get-random-time";
 import {getRandomEndTime} from "./helpers/get-random-end-time";
-import {getInitialDataMapped} from "./get-initial-data-mapped";
 import {getRandomArrayElements} from "./helpers/get-random-array-elements";
 
 export const getPointData = () => {
   const place = currentRouteData.place;
-  const initialData = getInitialDataMapped();
-  const pointData = Array.isArray(initialData) ? initialData.find((item) => typeof item === `object` && item.place === place) : {};
+  const pointData = getInitialDataByPlace(place);
   const eventsByPlace = Array.isArray(pointData.events) ? pointData.events : [];
   const destinationsByPlace = typeof pointData.destinations === `object` ? pointData.destinations : {};
   const offersByPlace = typeof pointData.offers === `object` ? pointData.offers : {};

@@ -1,13 +1,13 @@
 import {getAvailableDestinations} from "./get-available-destinations";
 import {getAvailableOffers} from "./get-available-offers";
 import {
-  INPUT_TRAVEL_ROUTE_MAP as routes,
-  EVENTS_ARRAY_MAP as eventsMap,
-  DESTINATIONS_MAP as destinationsMap,
-  SPECIAL_OFFERS_MAP as offersMap
+  uniqueTravelRoutes as routes,
+  EVENTS_ARRAY_MOCK as eventsMap,
+  DESTINATIONS_MOCK as destinationsMap,
+  SPECIAL_OFFERS_MOCK as offersMap
 } from "./initial-data";
 
-export const getInitialDataMapped = () => routes.map((route) => {
+export const initialDataMapped = routes.map((route) => {
   const startTime = null;
   const endTime = null;
   const price = null;

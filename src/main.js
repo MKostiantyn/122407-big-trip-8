@@ -13,6 +13,7 @@ pointsArray.forEach((dataItem) => renderPointComponents(dataItem, pointsContaine
 filtersForm.innerHTML = renderFilters(FILTER_ITEMS_ARRAY);
 
 const filters = filtersForm.querySelectorAll(`[name='filter']`);
+
 if (filters && filters.length) {
   filters.forEach((filter) => {
     filter.addEventListener(`change`, () => {

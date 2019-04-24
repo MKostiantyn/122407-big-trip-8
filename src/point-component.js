@@ -2,7 +2,7 @@ import {Currency, Event} from "./helpers/utils-data";
 import {
   convertPriceToCurrency,
   convertMillisecondsToHours,
-  formatHours, objectDeepCopying
+  formatHours
 } from "./helpers/utils-actions";
 import {AbstractPoint} from "./abstract-point-component";
 import moment from "moment";

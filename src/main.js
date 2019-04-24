@@ -83,7 +83,6 @@ if (pointsContainer && pointsContainer.nodeName) {
     })
     .catch((error) => {
       pointsContainer.textContent = `Something went wrong while loading your route info. Check your connection or try again later`;
-      console.error(`fetch error: ${error}`); // eslint-disable-line
       throw error;
     });
 }

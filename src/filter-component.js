@@ -15,10 +15,8 @@ export class Filter extends AbstractFilter {
   get template() {
     const name = this._name;
     const attributeChecked = this._isChecked ? `checked` : ``;
-    return `<span>
-            <input type="radio" id="filter-${name.toLowerCase()}" name="filter" value="${name.toLowerCase()}" ${attributeChecked}>
-            <label class="trip-filter__item" for="filter-${name.toLowerCase()}">${name}</label>
-            </span>`;
+    return `<span><input type="radio" id="filter-${name.toLowerCase()}" name="filter" value="${name.toLowerCase()}" ${attributeChecked}>
+            <label class="trip-filter__item" for="filter-${name.toLowerCase()}">${name}</label></span>`;
   }
 
   _onFilterChange() {
@@ -31,5 +29,11 @@ export class Filter extends AbstractFilter {
     const filter = this._element;
     const filterInput = filter.querySelector(`[name="filter"]`);
     filterInput.addEventListener(`change`, this._onFilterChange);
+  }
+
+  unbind() {
+    const filter = this._element;
+    const filterInput = filter.querySelector(`[name="filter"]`);
+    filterInput.removeEventListener(`change`, this._onFilterChange);
   }
 }

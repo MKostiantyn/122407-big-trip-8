@@ -32,5 +32,4 @@ export class PointModel {
       'offers': objectDeepCopying(data.offers)
     };
   }
-
 }

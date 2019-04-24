@@ -41,7 +41,6 @@ export const renderPointComponents = (data, container, serverApi) => {
         .catch((error) => {
           pointEdit.toggleBlockingOnSave(false);
           pointEdit.toggleErrorResponse(true);
-          console.error(`fetch error: ${error}`); // eslint-disable-line
           throw error;
         });
 
@@ -64,7 +63,6 @@ export const renderPointComponents = (data, container, serverApi) => {
         .catch((error) => {
           pointEdit.toggleBlockingOnDelete(false);
           pointEdit.toggleErrorResponse(true);
-          console.error(`fetch error: ${error}`); // eslint-disable-line
           throw error;
         });
     };

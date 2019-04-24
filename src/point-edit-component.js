@@ -297,7 +297,9 @@ export class PointEdit extends AbstractPoint {
   _toggleBlockingAllFormElements(status) {
     const formElement = this._element.querySelector(`[data-point-form]`);
     if (formElement && formElement.nodeName) {
-      [...formElement.elements].forEach((item) => item.disabled = status);
+      [...formElement.elements].forEach((item) => {
+        item.disabled = status;
+      });
     }
   }
 

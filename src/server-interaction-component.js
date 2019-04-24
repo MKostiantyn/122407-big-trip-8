@@ -43,7 +43,6 @@ export class ServerInteraction {
     return fetch(`${this._url}/${url}`, {method, body, headers})
       .then(ServerInteraction.checkStatus)
       .catch((error) => {
-        console.error(`fetch error: ${error}`); // eslint-disable-line
         throw error;
       });
   }
@@ -58,5 +57,5 @@ export class ServerInteraction {
     } else {
       throw new Error(`${response.status}: ${response.statusText}`);
     }
-  };
+  }
 }

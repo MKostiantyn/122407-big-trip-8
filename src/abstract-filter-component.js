@@ -13,10 +13,6 @@ export class AbstractFilter {
     throw new Error(`You have to define template.`);
   }
 
-  get element() {
-    return this._element;
-  }
-
   render() {
     this._element = createDomElement(this.template);
     this.bind();

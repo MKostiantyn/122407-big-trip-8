@@ -99,36 +99,4 @@ const FilterItems = [
   }
 ];
 
-const SortingItems = [
-  {
-    name: `Event`,
-    sortFunction(points) {
-      return points;
-    }
-  },
-  {
-    name: `Time`,
-    sortFunction(points = []) {
-      return points.sort((first, second) => {
-        return first.endTime - first.startTime - second.endTime - second.startTime;
-      });
-    }
-  },
-  {
-    name: `Price`,
-    sortFunction(points = []) {
-      return points.sort((first, second) => {
-        const firstTotal = first.offers.reduce((result, offer) => {
-          return offer[`accepted`] ? +offer[`price`] + result : result;
-        }, +first.price);
-        const secondTotal = second.offers.reduce((result, offer) => {
-          return offer[`accepted`] ? +offer[`price`] + result : result;
-        }, +first.price);
-
-        return firstTotal - secondTotal;
-      });
-    }
-  }
-];
-
 export {Time, Method, Currency, Event, KeyCode, SuccessStatusCode, FilterItems};

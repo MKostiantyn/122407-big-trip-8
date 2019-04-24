@@ -1,15 +1,15 @@
-import {AbstractFilter} from "./abstract-filter-component";
+import {AbstractComponent} from "./abstract-component";
 
-export class Filter extends AbstractFilter {
+export class Filter extends AbstractComponent {
   constructor(data) {
     super(data);
     this._isChecked = data.isChecked;
-    this._onFilter = null;
+    this._onChange = null;
     this._onFilterChange = this._onFilterChange.bind(this);
   }
 
-  set onFilter(functionOnFilter) {
-    this._onFilter = functionOnFilter;
+  set onChange(functionOnFilter) {
+    this._onChange = functionOnFilter;
   }
 
   get template() {
@@ -20,8 +20,8 @@ export class Filter extends AbstractFilter {
   }
 
   _onFilterChange() {
-    if (typeof this._onFilter === `function`) {
-      this._onFilter();
+    if (typeof this._onChange === `function`) {
+      this._onChange();
     }
   }
 

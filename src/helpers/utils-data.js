@@ -73,4 +73,62 @@ const KeyCode = {
   ESC: 27
 };
 
-export {Time, Method, Currency, Event, KeyCode};
+const SuccessStatusCode = {
+  MAX: 300,
+  MIN: 200
+};
+
+const FilterItems = [
+  {
+    name: `Everything`,
+    filterFunction(points) {
+      return points;
+    }
+  },
+  {
+    name: `Future`,
+    filterFunction(points = []) {
+      return points.filter((point) => point && point.startTime > Date.now());
+    }
+  },
+  {
+    name: `Past`,
+    filterFunction(points = []) {
+      return points.filter((point) => point && point.startTime <= Date.now());
+    }
+  }
+];
+
+const SortingItems = [
+  {
+    name: `Event`,
+    sortFunction(points) {
+      return points;
+    }
+  },
+  {
+    name: `Time`,
+    sortFunction(points = []) {
+      return points.sort((first, second) => {
+        return first.endTime - first.startTime - second.endTime - second.startTime;
+      });
+    }
+  },
+  {
+    name: `Price`,
+    sortFunction(points = []) {
+      return points.sort((first, second) => {
+        const firstTotal = first.offers.reduce((result, offer) => {
+          return offer[`accepted`] ? +offer[`price`] + result : result;
+        }, +first.price);
+        const secondTotal = second.offers.reduce((result, offer) => {
+          return offer[`accepted`] ? +offer[`price`] + result : result;
+        }, +first.price);
+
+        return firstTotal - secondTotal;
+      });
+    }
+  }
+];
+
+export {Time, Method, Currency, Event, KeyCode, SuccessStatusCode, FilterItems};

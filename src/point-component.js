@@ -2,7 +2,7 @@ import {Currency, Event} from "./helpers/utils-data";
 import {
   convertPriceToCurrency,
   convertMillisecondsToHours,
-  formatHours
+  convertHours
 } from "./helpers/utils-actions";
 import {AbstractPoint} from "./abstract-point-component";
 import moment from "moment";
@@ -12,51 +12,6 @@ export class Point extends AbstractPoint {
     super(data);
     this._onEdit = null;
     this._onPointClick = this._onPointClick.bind(this);
-  }
-
-  _getTimeTable() {
-    const startTimeFormatted = moment(this._startTime).format(`HH:mm`);
-    const endTimeFormatted = this._endTime ? moment(this._endTime).format(`HH:mm`) : ``;
-    if (endTimeFormatted) {
-      return `${startTimeFormatted} - ${endTimeFormatted}`;
-    }
-    return startTimeFormatted;
-  }
-
-  _onPointClick() {
-    if (typeof this._onEdit === `function`) {
-      this._onEdit();
-    }
-  }
-
-  _renderPointOffers() {
-    const VISIBLE_OFFERS = 3;
-    const offersChosen = this._getChosenOffers().slice(0, VISIBLE_OFFERS);
-    return offersChosen.reduce((total, offer, currentIndex, self) => {
-      if (!currentIndex) {
-        total += `<ul class="trip-point__offers">`;
-      }
-      total += `<li><button class="trip-point__offer">${Currency.SYMBOL} ${convertPriceToCurrency(offer.price)} ${offer.title}</button></li>`;
-      if (currentIndex === self.length - 1) {
-        total += `</ul>`;
-      }
-      return total;
-    }, ``);
-  }
-
-  _getDurationTime() {
-    const duration = this._endTime - this._startTime;
-    const convertedDuration = convertMillisecondsToHours(duration);
-    return formatHours(convertedDuration);
-  }
-
-  _getChosenOffers() {
-    const offers = this._offers;
-    return Array.isArray(offers) && offers.length ? offers.filter((item) => item.hasOwnProperty(`accepted`) && item[`accepted`]) : [];
-  }
-
-  _getPointTotalPrice() {
-    return this._getChosenOffers().reduce((accumulator, item) => +item.price + accumulator, +this._price);
   }
 
   set onEdit(functionOnEdit) {
@@ -83,6 +38,51 @@ export class Point extends AbstractPoint {
             <p class="trip-point__price">${totalPrice}</p>
             ${offers}
           </article>`;
+  }
+
+  _getTimeTable() {
+    const startTimeFormatted = moment(this._startTime).format(`HH:mm`);
+    const endTimeFormatted = this._endTime ? moment(this._endTime).format(`HH:mm`) : ``;
+    if (endTimeFormatted) {
+      return `${startTimeFormatted} - ${endTimeFormatted}`;
+    }
+    return startTimeFormatted;
+  }
+
+  _renderPointOffers() {
+    const VISIBLE_OFFERS = 3;
+    const offersChosen = this._getChosenOffers().slice(0, VISIBLE_OFFERS);
+    const offersChosenTemplate = offersChosen.reduce((total, offer) => {
+      const name = offer[`name`];
+      const currency = Currency.SYMBOL;
+      const price = offer[`price`];
+      const convertedPrice = convertPriceToCurrency(price);
+      total += `<li><button class="trip-point__offer">${currency} ${convertedPrice} ${name}</button></li>`;
+      return total;
+    }, ``);
+
+    return offersChosenTemplate ? `<ul class="trip-point__offers">${offersChosenTemplate}</ul>` : ``;
+  }
+
+  _getDurationTime() {
+    const duration = this._endTime - this._startTime;
+    const convertedDuration = convertMillisecondsToHours(duration);
+    return convertHours(convertedDuration);
+  }
+
+  _getChosenOffers() {
+    const offers = this._offers;
+    return Array.isArray(offers) && offers.length ? offers.filter((item) => item.hasOwnProperty(`accepted`) && item[`accepted`]) : [];
+  }
+
+  _getPointTotalPrice() {
+    return this._getChosenOffers().reduce((accumulator, item) => +item.price + accumulator, +this._price);
+  }
+
+  _onPointClick() {
+    if (typeof this._onEdit === `function`) {
+      this._onEdit();
+    }
   }
 
   bind() {

@@ -2,7 +2,7 @@ import {Time, Currency} from "./utils-data";
 
 const convertMillisecondsToHours = (milliseconds) => milliseconds / (Time.MINUTES * Time.SECONDS * Time.MILLISECONDS);
 
-const formatHours = (hours) => {
+const convertHours = (hours) => {
   const dayHours = Time.HOURS;
   const hoursFloor = Math.floor(hours);
   const durationDaysFloor = hours >= dayHours ? Math.floor(hoursFloor / dayHours) : 0;
@@ -71,14 +71,26 @@ const removeAllChildrenFromElement = (element) => {
   }
 };
 
+const renameObjectProperty = (oldProp, newProp, object) => {
+  return Object.keys(object).reduce((result, key) => {
+    if (key === oldProp) {
+      result[newProp] = object[key];
+    } else {
+      result[key] = object[key];
+    }
+    return result;
+  }, {});
+};
+
 export {
   convertMillisecondsToHours,
-  formatHours,
+  convertHours,
   objectDeepCopying,
   createDomElement,
   convertPriceToCurrency,
   removeDomElement,
   convertPriceFromCurrency,
   convertNumberToPriceFormat,
-  removeAllChildrenFromElement
+  removeAllChildrenFromElement,
+  renameObjectProperty
 };

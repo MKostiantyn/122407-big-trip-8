@@ -1,4 +1,4 @@
-import {objectDeepCopying, createDomElement} from "./helpers/utils-actions";
+import {objectDeepCopying, createDomElement, renameObjectProperty} from "./helpers/utils-actions";
 
 export class AbstractPoint {
   constructor(data) {
@@ -8,7 +8,11 @@ export class AbstractPoint {
     this._element = null;
     this._event = data.event;
     this._destination = objectDeepCopying(data.destination);
-    this._offers = objectDeepCopying(data.offers);
+    this._offers = data.offers.reduce((result, offer) => {
+      const newOffer = renameObjectProperty(`title`, `name`, offer);
+      result.push(newOffer);
+      return result;
+    }, []);
     this._price = data.price;
     this._startTime = data.startTime;
     this._endTime = data.endTime;
@@ -37,14 +41,5 @@ export class AbstractPoint {
   }
 
   unbind() {
-  }
-
-  update(data) {
-    this._event = data.event;
-    this._destination = objectDeepCopying(data.destination);
-    this._offers = objectDeepCopying(data.offers);
-    this._price = data.price;
-    this._startTime = data.startTime;
-    this._endTime = data.endTime;
   }
 }

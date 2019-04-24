@@ -1,4 +1,4 @@
-import {Method as methods} from "./helpers/utils-data";
+import {Method as methods, SuccessStatusCode} from "./helpers/utils-data";
 import {PointModel} from "./point-model-component";
 
 export class ServerInteraction {
@@ -9,18 +9,18 @@ export class ServerInteraction {
 
   getPoints() {
     return this._load({url: `points`})
-      .then(ServerInteraction.toJSON)
+      .then(ServerInteraction.convertToJSON)
       .then(PointModel.parsePoints);
   }
 
   getDestinations() {
     return this._load({url: `destinations`})
-      .then(ServerInteraction.toJSON);
+      .then(ServerInteraction.convertToJSON);
   }
 
   getOffers() {
     return this._load({url: `offers`})
-      .then(ServerInteraction.toJSON);
+      .then(ServerInteraction.convertToJSON);
   }
 
   updatePoint({id, data}) {
@@ -30,7 +30,7 @@ export class ServerInteraction {
       body: JSON.stringify(data),
       headers: new Headers({'Content-Type': `application/json`})
     })
-      .then(ServerInteraction.toJSON);
+      .then(ServerInteraction.convertToJSON);
   }
 
   deletePoint({id}) {
@@ -47,12 +47,12 @@ export class ServerInteraction {
       });
   }
 
-  static toJSON(response) {
+  static convertToJSON(response) {
     return response.json();
   }
 
   static checkStatus(response) {
-    if (response.status >= 200 && response.status < 300) {
+    if (response.status >= SuccessStatusCode.MIN && response.status < SuccessStatusCode.MAX) {
       return response;
     } else {
       throw new Error(`${response.status}: ${response.statusText}`);

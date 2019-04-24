@@ -1,8 +1,8 @@
 import {createDomElement} from "./helpers/utils-actions";
 
-export class AbstractFilter {
+export class AbstractComponent {
   constructor(data) {
-    if (new.target === AbstractFilter) {
+    if (new.target === AbstractComponent) {
       throw new Error(`Can't instantiate Component, only concrete one.`);
     }
     this._element = null;

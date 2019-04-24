@@ -19,10 +19,10 @@ export class PointDetailsDestination {
     const destination = this._destination;
     const pictures = destination && destination.hasOwnProperty(`pictures`) ? destination[`pictures`] : [];
     const picturesTemplate = pictures.reduce((accumulator, item) => {
-      const src = item.src;
+      const source = item.src;
       const alt = item.description ? item.description : ``;
-      if (src) {
-        accumulator += `<img src="${src}" alt="${alt}" class="point__destination-image">`;
+      if (source) {
+        accumulator += `<img src="${source}" alt="${alt}" class="point__destination-image">`;
       }
       return accumulator;
     }, ``);

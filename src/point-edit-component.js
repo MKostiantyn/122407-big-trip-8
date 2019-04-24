@@ -200,7 +200,7 @@ export class PointEdit extends AbstractPoint {
     for (const pair of data.entries()) {
       const [property, value] = pair;
       if (formData.hasOwnProperty(property)) {
-        formData[property] = `${formData[property]},${value}`
+        formData[property] = `${formData[property]},${value}`;
       } else {
         formData[property] = value;
       }
